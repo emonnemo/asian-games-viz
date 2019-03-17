@@ -144,16 +144,21 @@ class HostProgressChart(BaseChart):
 
         self.chart = pygal.Line(style=self.style)
         self.chart.title = self.title
+        self.chart.x_title = "Tahun Acara"
+        self.chart.y_title = "Jumlah Medali Emas"
 
         # draw using the json data
-        years, hosts, host_golds = [], [], []
+        # years, hosts, host_golds = [], [], []
+        years, hosts = [], []
         for event in self.shown_data:
             years.append(event['Tahun'])
             hosts.append(event['Tuan Rumah'])
 
         golds = {}
+        host_golds = {}
         for country in set(hosts):
             golds[country] = []
+            host_golds[country] = []
 
         for index, event in enumerate(self.shown_data):
             for country_progress in event['Data']:
@@ -161,12 +166,15 @@ class HostProgressChart(BaseChart):
                 if country_name in hosts:
                     golds[country_name].append(int(country_progress['Emas']))
                 if country_name == hosts[index]:
-                    host_golds.append(int(country_progress['Emas']))
+                    host_golds[country_name].append(int(country_progress['Emas']))
+                elif country_name in hosts:
+                    host_golds[country_name].append(None)
 
         self.chart.x_labels = years
         for country in sorted(set(hosts)):
-            self.chart.add(country, golds[country], dots_size=1)
-        self.chart.add('Host', host_golds, dots_size=3, stroke=False)
+            self.chart.add(country, golds[country], show_dots=False, stroke_style={'width': 2})
+        for country in sorted(set(hosts)):
+            self.chart.add('Host %s' % country, host_golds[country], dots_size=4, stroke=False)
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
@@ -207,7 +215,8 @@ if __name__ == '__main__':
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#fd8000'),
+        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4',
+            '#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
     )
 
     # indonesia progress chart
