@@ -5,7 +5,6 @@ from pygal.style import Style
 import json
 import pygal
 
-
 class BaseChart(ABC):
     '''
     Base abstract class for charts
@@ -126,6 +125,49 @@ class IndonesiaSports2018Chart(BaseChart):
     def render_to_png(self):
         self.chart.render_to_png(self.output)
 
+class HostProgressChart(BaseChart):
+
+    def __init__(self, **kwargs):
+        self.output = 'asset/host.png'
+        self.title = 'Perolahan Medali Emas Tuan Rumah Asian Games 10 Acara Terakhir'
+        super().__init__(**kwargs)
+
+
+    def filter(self, filter_config):
+        '''
+        Filter by changing the data in shown_data
+        according to filter_config
+        '''
+        pass
+
+    def draw(self):
+
+        self.chart = pygal.Line(style=self.style)
+        self.chart.title = self.title
+
+        # draw using the json data
+        years, hosts = [], []
+        for event in self.shown_data:
+            years.append(event['Tahun'])
+            hosts.append(event['Tuan Rumah'])
+
+        golds = {}
+        for country in set(hosts):
+            golds[country] = []
+
+        for event in self.shown_data:
+            for country_progress in event:
+                country_name = country_progress['Negara']
+                if country_name in hosts:
+                    golds[country_name].append(int(country_progress['Emas']))
+
+        self.chart.x_labels = years
+        for country in set(hosts):
+            self.chart.add(country, golds[country])
+
+    def render_to_png(self):
+        self.chart.render_to_png(self.output)
+
 
 if __name__ == '__main__':
     # basic style
@@ -167,4 +209,12 @@ if __name__ == '__main__':
     indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
     indonesia_2018_sports_chart.draw()
     indonesia_2018_sports_chart.render_to_png()
+
+    # host progress chart
+    with open('data/asia_medal.json') as json_file:
+        asia_progress_data = json.load(json_file)
+
+    host_progress_chart = HostProgressChart(data=asia_progress_data, style=sports_style)
+    host_progress_chart.draw()
+    host_progress_chart.render_to_png()
 
