@@ -156,7 +156,7 @@ class HostProgressChart(BaseChart):
             golds[country] = []
 
         for event in self.shown_data:
-            for country_progress in event:
+            for country_progress in event['Data']:
                 country_name = country_progress['Negara']
                 if country_name in hosts:
                     golds[country_name].append(int(country_progress['Emas']))
@@ -195,6 +195,18 @@ if __name__ == '__main__':
         colors=('#cd7f32', '#e5e4e2', '#ffff00', '#000000', '#E89B53'),
     )
 
+    host_style = Style(
+        background='white',
+        plot_background='transparent',
+        foreground='#000000',
+        foreground_strong='#53A0E8',
+        foreground_subtle='#630C0D',
+        opacity='.6',
+        opacity_hover='.9',
+        transition='400ms ease-in',
+        colors=('#cd7f32', '#e5e4e2', '#ffff00', '#000000', '#E89B53'),
+    )
+
     # indonesia progress chart
     with open('data/indonesia_progress.json') as json_file:
         data = json.load(json_file)
@@ -214,7 +226,7 @@ if __name__ == '__main__':
     with open('data/asia_medal.json') as json_file:
         asia_progress_data = json.load(json_file)
 
-    host_progress_chart = HostProgressChart(data=asia_progress_data, style=sports_style)
+    host_progress_chart = HostProgressChart(data=asia_progress_data, style=host_style)
     host_progress_chart.draw()
     host_progress_chart.render_to_png()
 
