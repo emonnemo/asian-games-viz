@@ -146,7 +146,7 @@ class HostProgressChart(BaseChart):
         self.chart.title = self.title
 
         # draw using the json data
-        years, hosts = [], []
+        years, hosts, host_golds = [], [], []
         for event in self.shown_data:
             years.append(event['Tahun'])
             hosts.append(event['Tuan Rumah'])
@@ -155,15 +155,18 @@ class HostProgressChart(BaseChart):
         for country in set(hosts):
             golds[country] = []
 
-        for event in self.shown_data:
+        for index, event in enumerate(self.shown_data):
             for country_progress in event['Data']:
                 country_name = country_progress['Negara']
                 if country_name in hosts:
                     golds[country_name].append(int(country_progress['Emas']))
+                if country_name == hosts[index]:
+                    host_golds.append(int(country_progress['Emas']))
 
         self.chart.x_labels = years
-        for country in set(hosts):
-            self.chart.add(country, golds[country])
+        for country in sorted(set(hosts)):
+            self.chart.add(country, golds[country], dots_size=1)
+        self.chart.add('Host', host_golds, dots_size=3, stroke=False)
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
@@ -201,10 +204,10 @@ if __name__ == '__main__':
         foreground='#000000',
         foreground_strong='#53A0E8',
         foreground_subtle='#630C0D',
-        opacity='.6',
+        opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#cd7f32', '#e5e4e2', '#ffff00', '#000000', '#E89B53'),
+        colors=('#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#b0b0b0', '#fd8000'),
     )
 
     # indonesia progress chart
