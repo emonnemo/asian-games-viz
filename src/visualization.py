@@ -169,7 +169,7 @@ class HostProgressChart(BaseChart):
 
     def draw(self):
 
-        self.chart = pygal.Line(style=self.style, legend_at_bottom=True, legend_at_bottom_columns=4)
+        self.chart = pygal.Line(style=self.style, margin_bottom=50, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
         self.chart.x_title = "Tahun Acara"
         self.chart.y_title = "Jumlah Medali Emas"
