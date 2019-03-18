@@ -148,7 +148,38 @@ class HostProgressChart(BaseChart):
         self.chart.y_title = "Jumlah Medali Emas"
 
         # draw using the json data
-        # years, hosts, host_golds = [], [], []
+        years, hosts = [], []
+        for event in self.shown_data:
+            years.append(event['Tahun'])
+            hosts.append(event['Tuan Rumah'])
+
+        golds = {}
+        host_golds = {}
+        for country in set(hosts):
+            golds[country] = []
+            host_golds[country] = []
+
+        for index, event in enumerate(self.shown_data):
+            for country_progress in event['Data']:
+                country_name = country_progress['Negara']
+                if country_name in hosts:
+                    gold = int(country_progress['Emas'])
+                    radius = 4 if country_name == hosts[index] else 0
+                    golds[country_name].append({'value': gold, 'node': {'r': radius}})
+
+        self.chart.x_labels = years
+        for country in sorted(set(hosts)):
+            self.chart.add(country, golds[country], stroke_style={'width': 2})
+
+    def draw2(self):
+        self.output = 'asset/host2.png'
+
+        self.chart = pygal.Line(style=self.style, show_legend=False)
+        self.chart.title = self.title
+        self.chart.x_title = "Tahun Acara"
+        self.chart.y_title = "Jumlah Medali Emas"
+
+        # draw using the json data
         years, hosts = [], []
         for event in self.shown_data:
             years.append(event['Tahun'])
@@ -207,12 +238,23 @@ if __name__ == '__main__':
         plot_background='transparent',
         foreground='#000000',
         foreground_strong='#53A0E8',
+        foreground_subtle='#000000',
+        opacity='1',
+        opacity_hover='.9',
+        transition='400ms ease-in',
+        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
+    )
+
+    host_style2 = Style(
+        background='white',
+        plot_background='transparent',
+        foreground='#000000',
+        foreground_strong='#53A0E8',
         foreground_subtle='#630C0D',
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4',
-            '#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
+        colors=('#a0a0a0', '#e6194b', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0'),
     )
 
     # indonesia progress chart
@@ -237,4 +279,8 @@ if __name__ == '__main__':
     host_progress_chart = HostProgressChart(data=asia_progress_data, style=host_style)
     host_progress_chart.draw()
     host_progress_chart.render_to_png()
+
+    host_progress_chart2 = HostProgressChart(data=asia_progress_data, style=host_style2)
+    host_progress_chart2.draw2()
+    host_progress_chart2.render_to_png()
 
