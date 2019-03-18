@@ -264,15 +264,15 @@ if __name__ == '__main__':
     )
 
     host_style = Style(
-        background='white',
+        background='transparent',
         plot_background='transparent',
         foreground='#000000',
-        foreground_strong='#53A0E8',
+        foreground_strong='#000000',
         foreground_subtle='#000000',
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
+        colors=('#f58231', '#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#911eb4'),
     )
 
     host_style2 = Style(
@@ -284,7 +284,7 @@ if __name__ == '__main__':
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#a0a0a0', '#e6194b', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0'),
+        colors=('#a0a0a0', '#a0a0a0', '#e6194b', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0'),
     )
 
     # indonesia progress chart
@@ -313,4 +313,3 @@ if __name__ == '__main__':
     host_progress_chart2 = HostProgressChart(data=asia_progress_data, style=host_style2)
     host_progress_chart2.draw2()
     host_progress_chart2.render_to_png()
-
