@@ -18,6 +18,7 @@ def home():
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
+        font_family='googlefont:Sofia',
         colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
     )
 
@@ -25,7 +26,7 @@ def home():
         background='white',
         plot_background='transparent',
         foreground='#000000',
-        foreground_strong='#53A0E8',
+        foreground_strong='rgba(0,0,0,1)',
         foreground_subtle='#630C0D',
         opacity=1,
         transition='400ms ease-in',

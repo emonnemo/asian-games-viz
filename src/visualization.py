@@ -130,8 +130,10 @@ class IndonesiaSports2018Chart(BaseChart):
     
     def draw(self):
 
-        self.chart = pygal.HorizontalStackedBar(style=self.style, fill=True)
+        self.chart = pygal.HorizontalStackedBar(style=self.style, fill=True, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
+
+        self.chart.x_title = "Persentase Medali"
 
         golds, silvers, bronzes, rest, sport_names = self.fill_data()
 
@@ -167,7 +169,7 @@ class HostProgressChart(BaseChart):
 
     def draw(self):
 
-        self.chart = pygal.Line(style=self.style)
+        self.chart = pygal.Line(style=self.style, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
         self.chart.x_title = "Tahun Acara"
         self.chart.y_title = "Jumlah Medali Emas"
