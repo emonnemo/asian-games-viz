@@ -39,7 +39,7 @@ class IndonesiaProgressChart(BaseChart):
 
 
     def __init__(self, **kwargs):
-        self.output = 'asset/indonesia-progress.svg'
+        self.output = 'asset/indonesia-progress.png'
         self.title = 'Indonesia progress medal'
         super().__init__(**kwargs)
 
@@ -53,7 +53,7 @@ class IndonesiaProgressChart(BaseChart):
 
     
     def draw(self):
-        self.chart = pygal.StackedLine(fill=True, style=self.style)
+        self.chart = pygal.StackedLine(fill=True, style=self.style, dots_size=0)
         self.chart.title = self.title
 
         # draw using the json data
@@ -76,10 +76,6 @@ class IndonesiaProgressChart(BaseChart):
         self.chart.render_to_png(self.output)
 
 
-    def render_to_svg(self):
-        self.chart.render_to_file(self.output)
-
-    
     def render(self):
         return self.chart.render_data_uri()
 
@@ -147,7 +143,12 @@ class IndonesiaSports2018Chart(BaseChart):
 
 
     def render_to_png(self):
-        print (self.chart.render_response())
+        self.chart.render_to_png(self.output)
+
+
+    def render(self):
+        return self.chart.render_data_uri()
+
 
 class HostProgressChart(BaseChart):
 
@@ -233,18 +234,22 @@ class HostProgressChart(BaseChart):
         self.chart.render_to_png(self.output)
 
 
+    def render(self):
+        return self.chart.render_data_uri()
+
+
 if __name__ == '__main__':
     # basic style
-    custom_style = Style(
+    indonesia_progress_style = Style(
         background='transparent',
         plot_background='transparent',
-        foreground='#53E89B',
-        foreground_strong='#53A0E8',
-        foreground_subtle='#630C0D',
-        opacity='.6',
+        foreground='#000000',
+        foreground_strong='#000000',
+        #foreground_subtle='#630C0D',
+        opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'),
+        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
     )
 
     sports_style = Style(
@@ -289,9 +294,9 @@ if __name__ == '__main__':
     with open('data/indonesia_2018.json') as json_file:
         sports_2018_data = json.load(json_file)
 
-    indonesia_progress_chart = IndonesiaProgressChart(data=data, style=custom_style)
+    indonesia_progress_chart = IndonesiaProgressChart(data=data, style=indonesia_progress_style)
     indonesia_progress_chart.draw()
-    indonesia_progress_chart.render_to_svg()
+    indonesia_progress_chart.render_to_png()
 
     indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
     indonesia_2018_sports_chart.draw()

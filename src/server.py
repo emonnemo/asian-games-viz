@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from pygal.style import Style
-from src.visualization import IndonesiaProgressChart
+from src.visualization import IndonesiaProgressChart, IndonesiaSports2018Chart, HostProgressChart
 import json
 app = Flask(__name__, template_folder='../templates/')
 
@@ -9,24 +9,63 @@ app = Flask(__name__, template_folder='../templates/')
 @app.route('/')
 def home():
     # Style
-    custom_style = Style(
+    indonesia_progress_style = Style(
         background='transparent',
         plot_background='transparent',
-        foreground='#53E89B',
-        foreground_strong='#53A0E8',
-        foreground_subtle='#630C0D',
-        opacity='.6',
+        foreground='#00000',
+        foreground_strong='#000000',
+        #foreground_subtle='#630C0D',
+        opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'),
+        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
+    )
+
+    sports_style = Style(
+        background='white',
+        plot_background='transparent',
+        foreground='#000000',
+        foreground_strong='#53A0E8',
+        foreground_subtle='#630C0D',
+        opacity=1,
+        transition='400ms ease-in',
+        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
+    )
+
+    host_style = Style(
+        background='white',
+        plot_background='transparent',
+        foreground='#000000',
+        foreground_strong='#53A0E8',
+        foreground_subtle='#000000',
+        opacity='1',
+        opacity_hover='.9',
+        transition='400ms ease-in',
+        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
     )
 
     # indonesia progress chart
     with open('data/indonesia_progress.json') as json_file:
-        data = json.load(json_file)
+        indonesia_progress_data = json.load(json_file)
 
-    indonesia_progress_chart = IndonesiaProgressChart(data=data, style=custom_style)
+    indonesia_progress_chart = IndonesiaProgressChart(data=indonesia_progress_data, style=indonesia_progress_style)
     indonesia_progress_chart.draw()
-    chart = indonesia_progress_chart.render()
+    indonesia_progress_chart_rendered = indonesia_progress_chart.render()
 
-    return render_template('index.html', indonesia_progress_chart=chart) 
+    # sports chart
+    with open('data/indonesia_2018.json') as json_file:
+        sports_2018_data = json.load(json_file)
+    
+    indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
+    indonesia_2018_sports_chart.draw()
+    indonesia_2018_sports_chart_rendered = indonesia_2018_sports_chart.render()
+
+    # host progress chart
+    with open('data/asia_medal.json') as json_file:
+        asia_progress_data = json.load(json_file)
+
+    host_progress_chart = HostProgressChart(data=asia_progress_data, style=host_style)
+    host_progress_chart.draw()
+    host_progress_chart_rendered = host_progress_chart.render()
+
+    return render_template('index.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_2018_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
