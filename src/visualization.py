@@ -41,6 +41,16 @@ class IndonesiaProgressChart(BaseChart):
     def __init__(self, **kwargs):
         self.output = 'asset/indonesia-progress.png'
         self.title = 'Perolehan Medali Indonesia di 10 Event Terakhir'
+        custom_css = '''
+        {{ id }} .plot_title {
+            font-weight: bold;
+        }
+        '''
+        custom_css_file = '/tmp/pygal_custom_style.css'
+        with open(custom_css_file, 'w') as f:
+            f.write(custom_css)
+        self.config = pygal.Config(fill=True, interpolate='cubic')
+        self.config.css.append('file://' + custom_css_file)
         super().__init__(**kwargs)
 
 
@@ -53,7 +63,7 @@ class IndonesiaProgressChart(BaseChart):
 
     
     def draw(self):
-        self.chart = pygal.StackedLine(fill=True, style=self.style, dots_size=0, legend_at_bottom=True, legend_at_bottom_columns=3)
+        self.chart = pygal.StackedLine(self.config, fill=True, style=self.style, dots_size=0, legend_at_bottom=True, legend_at_bottom_columns=3)
         self.chart.title = self.title
         self.chart.x_title = "Tahun Event"
         self.chart.y_title = "Jumlah Medali"
