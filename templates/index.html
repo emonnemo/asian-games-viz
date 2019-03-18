@@ -10,33 +10,54 @@
 </head>
 <body>
 
-    <div id="viz-title"><h1>Indonesia & Asian Games</h1></div>
-    <hr style="length:70 border:1px solid black">
+    <div id="viz-title">
+        <h1>Performa Indonesia di Asian Games</h1>
+    </div>
+
     <div class="row">
-        <div class='col-9'>
+        <div class='col-8'>
             <div id="indonesia-progress-chart">
                 <embed type="image/svg+xml" src= {{ indonesia_progress_chart|safe }} />
             </div>
         </div>
-        <div class="col-3">
-            <div id="explanation">
-                <p>
+        <div class="col-4">
+            <div id="id-progress-desc">
+                <!-- <p>
                     Pada acara Asian Games terbaru, yakni tahun 2018 kemarin, Indonesia berhasil memperoleh kepercayaan untuk menjadi tuan rumah acara ini. Asian Games 2018 dilaksanakan di kota Jakarta dan juga Palembang. Indonesia, selain menjadi tuan rumah, juga berhasil mencetak rekor perolehan medali emas tertinggi sepanjang mengikuti acara ini.
-                </p>
+                </p> -->
+                Ini penjelasan progress
             </div>
         </div>
     </div>
+    
+    <hr class="divider-line">
 
     <div class="row">
+        <div class='col-6'>
+            <div id="host-desc">
+                Ini penjelasan host
+            </div>
+        </div>
+
         <div class='col-6'>
             <div id="host-chart">
                 <embed type="image/svg+xml" src= {{ host_chart|safe }} />
             </div>
         </div>
+    </div>
 
+    <hr class="divider-line">
+
+    <div class="row">
         <div class='col-6'>
             <div id="sports-chart">
                 <embed type="image/svg+xml" src= {{ sports_chart|safe }} />
+            </div>
+        </div>
+
+        <div class='col-6'>
+            <div id="sports-desc">
+                Ini penjelasan sports
             </div>
         </div>
     </div>

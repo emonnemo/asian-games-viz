@@ -1,5 +1,6 @@
-#viz-title {
-	text-align: center;
+body {
+	background-color: whitesmoke;
+	margin: 0;
 }
 
 .row::after {
@@ -26,3 +27,14 @@
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
+
+#viz-title {
+	text-align: center;
+	color: whitesmoke;
+	background-color: maroon;
+	padding: 2.67em;
+}
+
+.divider-line {
+	margin: 0 auto;
+}

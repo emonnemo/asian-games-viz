@@ -23,7 +23,7 @@ def home():
     )
 
     sports_style = Style(
-        background='white',
+        background='transparent',
         plot_background='transparent',
         foreground='#000000',
         foreground_strong='rgba(0,0,0,1)',

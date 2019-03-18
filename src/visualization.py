@@ -42,14 +42,18 @@ class IndonesiaProgressChart(BaseChart):
         self.output = 'asset/indonesia-progress.png'
         self.title = 'Perolehan Medali Indonesia di 10 Event Terakhir'
         custom_css = '''
+        {{ id }} .title .legends {
+            font-size: 12px;
+        }
         {{ id }} .plot_title {
             font-weight: bold;
+            font-size: 16px;
         }
         '''
         custom_css_file = '/tmp/pygal_custom_style.css'
         with open(custom_css_file, 'w') as f:
             f.write(custom_css)
-        self.config = pygal.Config(fill=True, interpolate='cubic')
+        self.config = pygal.Config(fill=True, interpolate='hermite')
         self.config.css.append('file://' + custom_css_file)
         super().__init__(**kwargs)
 
@@ -97,6 +101,20 @@ class IndonesiaSports2018Chart(BaseChart):
     def __init__(self, **kwargs):
         self.output = 'asset/sports-indonesia.png'
         self.title = 'Perolahan Medali Indonesia Per Cabang 2018'
+        custom_css = '''
+        {{ id }} .title .legends {
+            font-size: 16px;
+        }
+        {{ id }} .plot_title {
+            font-weight: bold;
+            font-size: 20px !important;
+        }
+        '''
+        custom_css_file = '/tmp/pygal_custom_style.css'
+        with open(custom_css_file, 'w') as f:
+            f.write(custom_css)
+        self.config = pygal.Config()
+        self.config.css.append('file://' + custom_css_file)
         super().__init__(**kwargs)
 
 
@@ -142,7 +160,7 @@ class IndonesiaSports2018Chart(BaseChart):
     
     def draw(self):
 
-        self.chart = pygal.HorizontalStackedBar(style=self.style, fill=True, legend_at_bottom=True, legend_at_bottom_columns=4)
+        self.chart = pygal.HorizontalStackedBar(self.config, style=self.style, fill=True, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
 
         self.chart.x_title = "Persentase Medali"
@@ -169,6 +187,20 @@ class HostProgressChart(BaseChart):
     def __init__(self, **kwargs):
         self.output = 'asset/host.png'
         self.title = 'Perolahan Medali Emas Tuan Rumah Asian Games 10 Acara Terakhir'
+        custom_css = '''
+        {{ id }} .title .legends {
+            font-size: 16px;
+        }
+        {{ id }} .plot_title {
+            font-weight: bold;
+            font-size: 20px !important;
+        }
+        '''
+        custom_css_file = '/tmp/pygal_custom_style.css'
+        with open(custom_css_file, 'w') as f:
+            f.write(custom_css)
+        self.config = pygal.Config(fill=False)
+        self.config.css.append('file://' + custom_css_file)
         super().__init__(**kwargs)
 
 
@@ -181,7 +213,7 @@ class HostProgressChart(BaseChart):
 
     def draw(self):
 
-        self.chart = pygal.Line(style=self.style, margin_bottom=50, legend_at_bottom=True, legend_at_bottom_columns=4)
+        self.chart = pygal.Line(self.config, style=self.style, margin_bottom=50, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
         self.chart.x_title = "Tahun Event"
         self.chart.y_title = "Jumlah Medali Emas"
