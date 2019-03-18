@@ -40,7 +40,7 @@ class IndonesiaProgressChart(BaseChart):
 
     def __init__(self, **kwargs):
         self.output = 'asset/indonesia-progress.png'
-        self.title = 'Indonesia progress medal'
+        self.title = 'Perolehan Medali Indonesia di 10 Event Terakhir'
         super().__init__(**kwargs)
 
 
@@ -55,6 +55,8 @@ class IndonesiaProgressChart(BaseChart):
     def draw(self):
         self.chart = pygal.StackedLine(fill=True, style=self.style, dots_size=0, legend_at_bottom=True, legend_at_bottom_columns=3)
         self.chart.title = self.title
+        self.chart.x_title = "Tahun Event"
+        self.chart.y_title = "Jumlah Medali"
 
         # draw using the json data
         years, golds, silvers, bronzes, ranks = [], [], [], [], []
@@ -171,7 +173,7 @@ class HostProgressChart(BaseChart):
 
         self.chart = pygal.Line(style=self.style, margin_bottom=50, legend_at_bottom=True, legend_at_bottom_columns=4)
         self.chart.title = self.title
-        self.chart.x_title = "Tahun Acara"
+        self.chart.x_title = "Tahun Event"
         self.chart.y_title = "Jumlah Medali Emas"
 
         # draw using the json data

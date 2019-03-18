@@ -18,7 +18,7 @@ def home():
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        font_family='googlefont:Sofia',
+        font_family='googlefont:Roboto Slab',
         colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56'),
     )
 
@@ -30,6 +30,7 @@ def home():
         foreground_subtle='#630C0D',
         opacity=1,
         transition='400ms ease-in',
+        font_family='googlefont:Roboto Slab',
         colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56', 'rgba(0,0,0,0.1)'),
     )
 
@@ -42,6 +43,7 @@ def home():
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
+        font_family='googlefont:Roboto Slab',
         colors=('#f58231', '#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#911eb4'),
     )
 
