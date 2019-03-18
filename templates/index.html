@@ -4,17 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=no">
     <title>Visualisasi Medali Asian Games</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
 </head>
 <body>
-    <div id="indonesia-progress-chart">
-        <embed type="image/svg+xml" src= {{ indonesia_progress_chart|safe }} />
-    </div>
-    <div id="sports-chart">
-        <embed type="image/svg+xml" src= {{ sports_chart|safe }} />
-    </div>
-    <div id="host-chart">
-        <embed type="image/svg+xml" src= {{ host_chart|safe }} />
+
+    <div id="viz-title"><h1>Indonesia & Asian Games</h1></div>
+    <div class="row">
+        <div class="col-7">
+            <div id="indonesia-progress-chart">
+                <embed type="image/svg+xml" src= {{ indonesia_progress_chart|safe }} />
+            </div>
+        </div>
+        <div class="col-5">
+            <div id="host-chart">
+                <embed type="image/svg+xml" src= {{ host_chart|safe }} />
+            </div>
+            <div id="sports-chart">
+                <embed type="image/svg+xml" src= {{ sports_chart|safe }} />
+            </div>
+        </div>
     </div>
 
 </body>

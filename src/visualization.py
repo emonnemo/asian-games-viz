@@ -53,7 +53,7 @@ class IndonesiaProgressChart(BaseChart):
 
     
     def draw(self):
-        self.chart = pygal.StackedLine(fill=True, style=self.style, dots_size=0)
+        self.chart = pygal.StackedLine(fill=True, style=self.style, dots_size=0, legend_at_bottom=True, legend_at_bottom_columns=3)
         self.chart.title = self.title
 
         # draw using the json data

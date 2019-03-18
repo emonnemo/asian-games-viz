@@ -33,15 +33,15 @@ def home():
     )
 
     host_style = Style(
-        background='white',
+        background='transparent',
         plot_background='transparent',
         foreground='#000000',
-        foreground_strong='#53A0E8',
+        foreground_strong='#000000',
         foreground_subtle='#000000',
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4'),
+        colors=('#f58231', '#fabebe', '#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#911eb4'),
     )
 
     # indonesia progress chart
