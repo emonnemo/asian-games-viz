@@ -99,35 +99,50 @@ class IndonesiaSports2018Chart(BaseChart):
         '''
         pass
 
+    def fill_data(self):
+        
+        # draw using the json data
+        sport_names = []
+        golds, silvers, bronzes = [], [], []
+        rest = []
+        for sports in self.shown_data:
+            sport_name = sports['Cabor']
+            medals = sports['Medali']
+
+            total = int(medals["Total Seluruh Medali"])
+            gold = (int(medals['Emas']) / total) * 100
+            silver = (int(medals['Perak']) / total) * 100
+            bronze = (int(medals['Perunggu']) / total) * 100
+
+            rest_medal = 100 - (gold + silver + bronze)
+
+            idx = 0
+            while idx < len(rest):
+                if rest[idx] > rest_medal:
+                    idx += 1
+                else:
+                    break
+                
+            sport_names.insert(idx, sport_name)
+            golds.insert(idx, gold)
+            silvers.insert(idx, silver)
+            bronzes.insert(idx, bronze)
+            rest.insert(idx, rest_medal)
+        
+        return golds, silvers, bronzes, rest, sport_names
+
     
     def draw(self):
 
         self.chart = pygal.HorizontalStackedBar(style=self.style, fill=True)
         self.chart.title = self.title
 
-        # draw using the json data
-        sport_names = []
-        golds, silvers, bronzes = [], [], []
-        rest = []
-        for sports in self.shown_data:
-            if not sports['Cabor'] == "Atletik":
-                sport_names.append(sports['Cabor'])
-                medals = sports['Medali']
-
-                gold = int(medals['Emas'])
-                silver = int(medals['Perak'])
-                bronze = int(medals['Perunggu'])
-                rest_medal = int(medals["Total Seluruh Medali"]) - (gold + silver + bronze)
-
-                golds.append(gold)
-                silvers.append(silver)
-                bronzes.append(bronze)
-                rest.append(rest_medal)
+        golds, silvers, bronzes, rest, sport_names = self.fill_data()
 
         self.chart.x_labels = sport_names
-        self.chart.add('Perunggu', bronzes)
-        self.chart.add('Perak', silvers)
         self.chart.add('Emas', golds)
+        self.chart.add('Perak', silvers)
+        self.chart.add('Perunggu', bronzes)
         self.chart.add('Medali Tersisa', rest)
 
 
@@ -173,11 +188,9 @@ class HostProgressChart(BaseChart):
             for country_progress in event['Data']:
                 country_name = country_progress['Negara']
                 if country_name in hosts:
-                    golds[country_name].append(int(country_progress['Emas']))
-                if country_name == hosts[index]:
-                    host_golds[country_name].append(int(country_progress['Emas']))
-                elif country_name in hosts:
-                    host_golds[country_name].append(None)
+                    gold = int(country_progress['Emas'])
+                    radius = 4 if country_name == hosts[index] else 0
+                    golds[country_name].append({'value': gold, 'node': {'r': radius}})
 
         self.chart.x_labels = years
         for country in sorted(set(hosts)):
@@ -209,10 +222,9 @@ if __name__ == '__main__':
         foreground='#000000',
         foreground_strong='#53A0E8',
         foreground_subtle='#630C0D',
-        opacity='.6',
-        opacity_hover='.9',
+        opacity=1,
         transition='400ms ease-in',
-        colors=('#cd7f32', '#e5e4e2', '#ffff00', '#000000', '#E89B53'),
+        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
     )
 
     host_style = Style(
