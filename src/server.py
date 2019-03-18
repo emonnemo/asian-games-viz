@@ -19,7 +19,7 @@ def home():
         opacity_hover='.9',
         transition='400ms ease-in',
         font_family='googlefont:Sofia',
-        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
+        colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56'),
     )
 
     sports_style = Style(
@@ -30,7 +30,7 @@ def home():
         foreground_subtle='#630C0D',
         opacity=1,
         transition='400ms ease-in',
-        colors=('rgba(255,223,0,1)', 'rgba(192,192,192,1)', 'rgba(205,127,50,1)', 'rgba(0,0,0,0.1)'),
+        colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56', 'rgba(0,0,0,0.1)'),
     )
 
     host_style = Style(
