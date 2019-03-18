@@ -37,4 +37,17 @@ body {
 
 .divider-line {
 	margin: 0 auto;
+	width: 95%;
+}
+
+#asian-games-logo {
+	position: fixed;
+	bottom: 0;
+	left: 550px;
+	z-index: -1;
+}
+
+#asian-games-logo img {
+	height: 1000px;
+	opacity: 0.1;
 }
