@@ -179,17 +179,13 @@ class HostProgressChart(BaseChart):
             for country_progress in event['Data']:
                 country_name = country_progress['Negara']
                 if country_name in hosts:
-                    golds[country_name].append(int(country_progress['Emas']))
-                if country_name == hosts[index]:
-                    host_golds[country_name].append(int(country_progress['Emas']))
-                elif country_name in hosts:
-                    host_golds[country_name].append(None)
+                    gold = int(country_progress['Emas'])
+                    radius = 4 if country_name == hosts[index] else 0
+                    golds[country_name].append({'value': gold, 'node': {'r': radius}})
 
         self.chart.x_labels = years
         for country in sorted(set(hosts)):
-            self.chart.add(country, golds[country], show_dots=False, stroke_style={'width': 2})
-        for country in sorted(set(hosts)):
-            self.chart.add('Host %s' % country, host_golds[country], dots_size=4, stroke=False)
+            self.chart.add(country, golds[country], stroke_style={'width': 2})
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
