@@ -39,7 +39,7 @@ class IndonesiaProgressChart(BaseChart):
 
 
     def __init__(self, **kwargs):
-        self.output = 'asset/indonesia-progress.png'
+        self.output = 'asset/indonesia-progress.svg'
         self.title = 'Indonesia progress medal'
         super().__init__(**kwargs)
 
@@ -74,6 +74,15 @@ class IndonesiaProgressChart(BaseChart):
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
+
+
+    def render_to_svg(self):
+        self.chart.render_to_file(self.output)
+
+    
+    def render(self):
+        return self.chart.render_data_uri()
+
 
 class IndonesiaSports2018Chart(BaseChart):
 
@@ -123,7 +132,7 @@ class IndonesiaSports2018Chart(BaseChart):
 
 
     def render_to_png(self):
-        self.chart.render_to_png(self.output)
+        print (self.chart.render_response())
 
 class HostProgressChart(BaseChart):
 
@@ -174,7 +183,7 @@ class HostProgressChart(BaseChart):
         for country in sorted(set(hosts)):
             self.chart.add(country, golds[country], show_dots=False, stroke_style={'width': 2})
         for country in sorted(set(hosts)):
-            self.chart.add('Host %s' % country, host_golds[country], dots_size=4, stroke=False)
+            self.chart.add('Host %s' % country, host_golds[country], dots_size=4, stroke=False, show_legends=False)
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
@@ -228,7 +237,7 @@ if __name__ == '__main__':
 
     indonesia_progress_chart = IndonesiaProgressChart(data=data, style=custom_style)
     indonesia_progress_chart.draw()
-    indonesia_progress_chart.render_to_png()
+    indonesia_progress_chart.render_to_svg()
 
     indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
     indonesia_2018_sports_chart.draw()
