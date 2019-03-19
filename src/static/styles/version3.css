@@ -1,0 +1,98 @@
+body {
+	background-color: whitesmoke;
+	margin: 0;
+	font-family: "Roboto Slab";
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+#viz-title {
+	text-align: center;
+	color: whitesmoke;
+	background-color: maroon;
+	padding: 2.67em;
+}
+
+[class*="divider-line-"] {
+	margin: 8px 0 0 0;
+	border: none;
+	border-bottom: dashed 3.5px maroon;
+}
+
+[class*="divider-line-"], #subtitle {
+	float: left;
+}
+
+.divider-line-left {
+	margin-right: 5px;
+	width: 10%;
+}
+
+.divider-line-right {
+	margin-left: 5px;
+	width: 74%;
+}
+
+#asian-games-logo {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+}
+
+#asian-games-logo img {
+	height: 500px;
+	opacity: 0.1;
+}
+
+.left-col {
+	border-right: dashed 0.5px maroon;
+}
+
+#introduction {
+	text-align: center;
+	line-height: 40px;
+	padding: 15px;
+}
+
+#host-desc, #sports-desc {
+	line-height: 30px;
+}
+
+#footer {
+	text-align: center;
+	color: whitesmoke;
+	background-color: maroon;
+	height: 58px;
+	font-size: x-small;
+	display: flex;
+	justify-content: center;
+}
+
+#footer span {
+	align-self: flex-end;
+	margin-bottom: 10px;
+}
