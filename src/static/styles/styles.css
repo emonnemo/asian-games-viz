@@ -1,6 +1,7 @@
 body {
 	background-color: whitesmoke;
 	margin: 0;
+	font-family: "Roboto Slab";
 }
 
 .row::after {
@@ -38,6 +39,7 @@ body {
 .divider-line {
 	margin: 0 auto;
 	width: 95%;
+	border: dashed 0.5px maroon;
 }
 
 #asian-games-logo {
@@ -50,4 +52,25 @@ body {
 #asian-games-logo img {
 	height: 500px;
 	opacity: 0.1;
+}
+
+[id*="-desc"] {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.right-col {
+	padding-right: 2.5%;
+}
+
+.left-col {
+	padding-left: 2.5%;
+}
+
+#id-progress-desc {
+	height: 450px;
+}
+
+#host-desc, #sports-desc {
+	height: 350px;
 }
