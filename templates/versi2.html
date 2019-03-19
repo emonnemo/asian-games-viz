@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no">
+    <link rel="icon" type= "image/png" href= "{{ url_for('static',filename='assets/asian-games-logo.png') }}">
+    <title>Visualisasi Medali Asian Games</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet'>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+</head>
+<body>
+
+    <div id="viz-title">
+        <h1>Performa Indonesia di Asian Games</h1>
+    </div>
+
+    <div class="row">
+        <div class='col-8'>
+            <div id="indonesia-progress-chart">
+                <embed type="image/svg+xml" src= {{ indonesia_progress_chart|safe }} />
+            </div>
+        </div>
+        <div class="col-4 right-col">
+            <div id="id-progress-desc">
+                Pada acara Asian Games 2018, Indonesia berhasil mencetak rekor perolehan medali emas tertinggi dalam rekam jejak Indonesia.
+            </div>
+        </div>
+    </div>
+    
+    <hr class="divider-line">
+
+    <div class="row">
+        <div class="col-6 left-col">
+            <div id="host-desc">
+                Status tuan rumah disinyalir merupakan salah satu faktor pendongkrak prestasi.<br />
+                Negara-negara lain pun menunjukkan tren peningkatan saat menjadi tuan rumah.<br />
+                Salah satu penyebabnya ialah hak istimewa tuan rumah menambah satu cabor.
+            </div>
+        </div>
+
+        <div class='col-6'>
+            <div id="host-chart">
+                <embed type="image/svg+xml" src= {{ host_chart|safe }} />
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider-line">
+
+    <div class="row">
+        <div class='col-6'>
+            <div id="sports-chart">
+                <embed type="image/svg+xml" src= {{ sports_chart|safe }} />
+            </div>
+        </div>
+
+        <div class="col-6 right-col">
+            <div id="sports-desc">
+                Pencak silat nyatanya menyumbang persentase emas terbanyak untuk Indonesia.<br />
+                Namun, persentase perolehan total medali tertinggi justru dipegang oleh voli pantai.
+            </div>
+        </div>
+    </div>
+
+    <div id="asian-games-logo">
+        <img src="{{ url_for('static', filename='assets/asian-games-logo-cropped.png') }}" alt="">
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+</html>
+

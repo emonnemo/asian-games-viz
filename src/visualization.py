@@ -87,6 +87,31 @@ class IndonesiaProgressChart(BaseChart):
         self.chart.add('Perak', silvers)
         self.chart.add('Perunggu', bronzes)
 
+    
+    def draw2(self):
+        custom_css_file = '/tmp/pygal_custom_style.css'
+        self.config = pygal.Config(fill=True)
+        self.config.css.append('file://' + custom_css_file)
+        self.chart = pygal.StackedLine(self.config, fill=True, style=self.style, dots_size=0, legend_at_bottom=True, legend_at_bottom_columns=3)
+        self.chart.title = self.title
+        self.chart.x_title = "Tahun Event"
+        self.chart.y_title = "Jumlah Medali"
+
+        # draw using the json data
+        years, golds, silvers, bronzes, ranks = [], [], [], [], []
+        for yearly_medal in self.shown_data:
+            years.append(int(yearly_medal['Tahun']))
+            medals = yearly_medal['Data']
+            golds.append(int(medals['Emas']))
+            silvers.append(int(medals['Perak']))
+            bronzes.append(int(medals['Perunggu']))
+            ranks.append(int(medals['Peringkat']))
+
+        self.chart.x_labels = years
+        self.chart.add('Emas', golds)
+        self.chart.add('Perak', silvers)
+        self.chart.add('Perunggu', bronzes)
+
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
@@ -225,10 +250,8 @@ class HostProgressChart(BaseChart):
             hosts.append(event['Tuan Rumah'])
 
         golds = {}
-        host_golds = {}
         for country in set(hosts):
             golds[country] = []
-            host_golds[country] = []
 
         for index, event in enumerate(self.shown_data):
             for country_progress in event['Data']:
@@ -251,30 +274,28 @@ class HostProgressChart(BaseChart):
         self.chart.y_title = "Jumlah Medali Emas"
 
         # draw using the json data
-        years, hosts = [], []
+        years, hosts, host_golds = [], [], []
         for event in self.shown_data:
             years.append(event['Tahun'])
             hosts.append(event['Tuan Rumah'])
 
         golds = {}
-        host_golds = {}
         for country in set(hosts):
             golds[country] = []
-            host_golds[country] = []
 
         for index, event in enumerate(self.shown_data):
             for country_progress in event['Data']:
                 country_name = country_progress['Negara']
                 if country_name in hosts:
                     gold = int(country_progress['Emas'])
-                    radius = 4 if country_name == hosts[index] else 0
-                    golds[country_name].append({'value': gold, 'node': {'r': radius}})
+                    golds[country_name].append(gold)
+                    if country_name == hosts[index]:
+                        host_golds.append(gold)
 
         self.chart.x_labels = years
         for country in sorted(set(hosts)):
             self.chart.add(country, golds[country], show_dots=False, stroke_style={'width': 2})
-        for country in sorted(set(hosts)):
-            self.chart.add('Host %s' % country, host_golds[country], dots_size=4, stroke=False, show_legends=False)
+        self.chart.add('Host %s' % country, host_golds, dots_size=4, stroke=False)
 
     def render_to_png(self):
         self.chart.render_to_png(self.output)
@@ -330,7 +351,7 @@ if __name__ == '__main__':
         opacity='1',
         opacity_hover='.9',
         transition='400ms ease-in',
-        colors=('#a0a0a0', '#a0a0a0', '#e6194b', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0'),
+        colors=('#a0a0a0', '#a0a0a0', '#e6194b', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#a0a0a0', '#00ff00'),
     )
 
     # indonesia progress chart
