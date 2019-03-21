@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template
 from pygal.style import Style
-from src.visualization import IndonesiaProgressChart, IndonesiaSports2018Chart, HostProgressChart
+from src.indonesia_progress_chart import IndonesiaProgressChart
+from src.indonesia_sports_2018_chart import IndonesiaSports2018Chart
+from src.host_progress_chart import HostProgressChart
 import json
 app = Flask(__name__, template_folder='../templates/')
 
@@ -59,9 +61,9 @@ def home():
     with open('data/indonesia_2018.json') as json_file:
         sports_2018_data = json.load(json_file)
     
-    indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
-    indonesia_2018_sports_chart.draw()
-    indonesia_2018_sports_chart_rendered = indonesia_2018_sports_chart.render()
+    indonesia_sports_2018_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
+    indonesia_sports_2018_chart.draw()
+    indonesia_2018_sports_chart_rendered = indonesia_sports_2018_chart.render()
 
     # host progress chart
     with open('data/asia_medal.json') as json_file:
