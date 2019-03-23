@@ -33,7 +33,7 @@ def home():
         opacity=1,
         transition='400ms ease-in',
         font_family='googlefont:Roboto Slab',
-        colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56', 'rgba(0,0,0,0.1)'),
+        colors=( '#FEE101', '#AD8A56', 'rgba(255,0,0,1)'),
     )
 
     host_style = Style(
@@ -58,12 +58,12 @@ def home():
     indonesia_progress_chart_rendered = indonesia_progress_chart.render()
 
     # sports chart
-    with open('data/indonesia_2018.json') as json_file:
+    with open('data/indonesia_medal.json') as json_file:
         sports_2018_data = json.load(json_file)
     
     indonesia_sports_2018_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
     indonesia_sports_2018_chart.draw()
-    indonesia_2018_sports_chart_rendered = indonesia_sports_2018_chart.render()
+    indonesia_medal_sports_chart_rendered = indonesia_sports_2018_chart.render()
 
     # host progress chart
     with open('data/asia_medal.json') as json_file:
@@ -73,7 +73,7 @@ def home():
     host_progress_chart.draw()
     host_progress_chart_rendered = host_progress_chart.render()
 
-    return render_template('index.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_2018_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
+    return render_template('index.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_medal_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
 
 @app.route('/2')
 def color_and_shape():
@@ -100,7 +100,7 @@ def color_and_shape():
         opacity=1,
         transition='400ms ease-in',
         font_family='googlefont:Roboto Slab',
-        colors=('#FEE101', 'rgba(192,192,192,1)', 'burlywood', 'rgba(0,0,0,0)'),
+        colors=( '#FEE101', '#AD8A56', 'rgba(255,0,0,1)'),
     )
 
     host_style = Style(
@@ -125,12 +125,12 @@ def color_and_shape():
     indonesia_progress_chart_rendered = indonesia_progress_chart.render()
 
     # sports chart
-    with open('data/indonesia_2018.json') as json_file:
+    with open('data/indonesia_medal.json') as json_file:
         sports_2018_data = json.load(json_file)
     
-    indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
-    indonesia_2018_sports_chart.draw()
-    indonesia_2018_sports_chart_rendered = indonesia_2018_sports_chart.render()
+    indonesia_medal_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
+    indonesia_medal_sports_chart.draw()
+    indonesia_medal_sports_chart_rendered = indonesia_medal_sports_chart.render()
 
     # host progress chart
     with open('data/asia_medal.json') as json_file:
@@ -140,7 +140,7 @@ def color_and_shape():
     host_progress_chart.draw2()
     host_progress_chart_rendered = host_progress_chart.render()
 
-    return render_template('index.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_2018_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
+    return render_template('index.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_medal_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
 
 
 @app.route('/3')
@@ -168,7 +168,7 @@ def portrait_side_by_side():
         opacity=1,
         transition='400ms ease-in',
         font_family='googlefont:Roboto Slab',
-        colors=('#FEE101', 'rgba(192,192,192,1)', '#AD8A56', 'rgba(0,0,0,0.1)'),
+        colors=( '#FEE101', '#AD8A56', 'rgba(255,0,0,1)'),
     )
 
     host_style = Style(
@@ -193,12 +193,12 @@ def portrait_side_by_side():
     indonesia_progress_chart_rendered = indonesia_progress_chart.render()
 
     # sports chart
-    with open('data/indonesia_2018.json') as json_file:
+    with open('data/indonesia_medal.json') as json_file:
         sports_2018_data = json.load(json_file)
     
-    indonesia_2018_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
-    indonesia_2018_sports_chart.draw()
-    indonesia_2018_sports_chart_rendered = indonesia_2018_sports_chart.render()
+    indonesia_medal_sports_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
+    indonesia_medal_sports_chart.draw()
+    indonesia_medal_sports_chart_rendered = indonesia_medal_sports_chart.render()
 
     # host progress chart
     with open('data/asia_medal.json') as json_file:
@@ -208,4 +208,4 @@ def portrait_side_by_side():
     host_progress_chart.draw()
     host_progress_chart_rendered = host_progress_chart.render()
 
-    return render_template('portrait_side_by_side.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_2018_sports_chart_rendered, host_chart=host_progress_chart_rendered) 
+    return render_template('portrait_side_by_side.html', indonesia_progress_chart=indonesia_progress_chart_rendered, sports_chart=indonesia_medal_sports_chart_rendered, host_chart=host_progress_chart_rendered) 

@@ -65,7 +65,7 @@ if __name__ == '__main__':
     indonesia_progress_chart.render_to_png()
 
     # indonesia sports 2018 chart
-    with open('data/indonesia_2018.json') as json_file:
+    with open('data/indonesia_medal.json') as json_file:
         sports_2018_data = json.load(json_file)
 
     indonesia_sports_2018_chart = IndonesiaSports2018Chart(data=sports_2018_data, style=sports_style)
